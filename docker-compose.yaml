@@ -1,0 +1,33 @@
+services:
+  # app:
+  #   build: './app'
+  #   ports:
+  #     - '4200:4200'
+  #   volumes:
+  #     - './app:/app'
+  #   environment:
+  #     - NODE_ENV=development
+
+  # server:
+  #   build: './server'
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     - './server:/server'
+  #   environment:
+  #     - NODE_ENV=development
+  #     - DB_HOST=mongodb://mongo:27017
+  #     - DB_NAME=mydatabase
+
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    ports:
+      - '5432:5432'
+    volumes:
+      - './db_data:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: cisco
+      POSTGRES_USER: admin
