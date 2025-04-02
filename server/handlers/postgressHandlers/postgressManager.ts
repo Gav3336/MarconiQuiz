@@ -2,7 +2,7 @@ import { Client } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 
 const client = new Client({
   user: "admin",
-  database: "test",
+  database: "marconiquiz",
   hostname: "localhost",
   password: "cisco",
   port: 5432,

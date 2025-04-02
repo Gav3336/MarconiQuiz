@@ -4,7 +4,7 @@ import { initialConnection } from "./handlers/postgressHandlers/postgressManager
 // try connect to the database
 // if there is an error, log the error and exit the process
 // if the connection is successful, log the success message
-async () => {
+(async () => {
     try {
         await initialConnection()
         console.log("Connected to the database")
@@ -12,7 +12,7 @@ async () => {
         console.log("Error connecting to the database (main.ts): ", err)
         Deno.exit(1)
     }
-}
+})()
 
 const app = new Hono()
 

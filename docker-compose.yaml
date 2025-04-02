@@ -31,3 +31,4 @@ services:
     environment:
       POSTGRES_PASSWORD: cisco
       POSTGRES_USER: admin
+      POSTGRES_DB: marconiquiz
