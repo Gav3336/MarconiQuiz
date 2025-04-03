@@ -1,6 +1,6 @@
 import { Client } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 
-const client = new Client({
+export const dbClient = new Client({
   user: "admin",
   database: "marconiquiz",
   hostname: "localhost",
@@ -17,7 +17,7 @@ const client = new Client({
 export async function initialConnection(): Promise<void> {
     try{
         // test the connection to the database
-        await client.connect()
+        await dbClient.connect()
     }
     catch(err){
         // if there is an error, log the error and throw an error
@@ -25,6 +25,6 @@ export async function initialConnection(): Promise<void> {
         throw new Error("Error connecting to the database")
         // disconnect the client at the end (both in case of success and error)
     }finally{
-        await client.end()
+        await dbClient.end()
     }
 }
