@@ -2,7 +2,6 @@ import { dbClient } from "./postgressManager.ts";
 import * as userValidation from "../../utils/validators/userValidator.ts";
 import { Buffer } from "node:buffer";
 import { createJWT, verifyJWT } from "./jwtManager.ts";
-import jwt from 'npm:jsonwebtoken';
 
 const {
     scrypt,

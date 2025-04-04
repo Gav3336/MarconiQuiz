@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { initialConnection } from "./handlers/postgressHandlers/postgressManager.ts"
 import { signup, login, tokenChecker } from "./handlers/postgressHandlers/userManager.ts"
 import { userDataSchema, userDataInterface, loginDataSchema } from "./utils/validators/userValidator.ts"
+import { quizzes } from "./routes/quizzes.ts"
 
 // try connect to the database
 // if there is an error, log the error and exit the process
@@ -18,8 +19,6 @@ import { userDataSchema, userDataInterface, loginDataSchema } from "./utils/vali
 
 
 const app = new Hono()
-
-app.get('/', (c) => c.text('Hello Deno!'))
 
 app.post('/signup', async (c) => {
     const userData = await c.req.parseBody()
@@ -92,6 +91,13 @@ app.post('/check', async (c) => {
         console.log("Error checking token (main.ts): ", err)
         return c.json({ message: 'Error checking token', error: (err as Error).message }, 500)
     }
+})
+
+app.route('/quizzes', quizzes)
+
+// catch all route that are not defined
+app.all('*', (c) => {
+    return c.json({ message: '404 Not Found' }, 404)
 })
 
 

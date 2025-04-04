@@ -1,0 +1,70 @@
+<div class="bg-gray-100 text-gray-800">
+
+  <header class="bg-white shadow-md rounded-b-lg sticky top-0 z-40">
+    <nav class="container mx-auto px-6 py-3">
+      <div class="flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-indigo-600">QuizMaster</a>
+        <div class="space-x-2">
+          <button id="login-btn"
+            class="text-gray-600 hover:text-indigo-600 px-4 py-2 rounded-md text-sm font-medium border border-gray-300 hover:border-indigo-300 transition duration-150 ease-in-out">
+            Log In
+          </button>
+          <button id="signup-btn"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out shadow-sm hover:shadow">
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mx-auto px-6 py-12">
+    <div class="flex flex-col lg:flex-row items-center bg-white p-8 rounded-lg shadow-lg mb-12">
+      <div class="lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0 lg:pr-10">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to QuizMaster!</h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Challenge yourself with fun and engaging quizzes on a variety of topics. Sharpen your mind, learn new things,
+          and compete with friends!
+        </p>
+        <p class="text-md text-gray-500 mb-8">
+          Ready to test your knowledge? Browse our collection of quizzes and start playing today.
+        </p>
+        <a [routerLink]="['/explore_quizzes']"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out inline-block shadow-md hover:shadow-lg">
+          Explore Quizzes
+        </a>
+      </div>
+      <div class="lg:w-1/2">
+        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Quiz+Illustration"
+          alt="Illustration representing quizzes and learning" class="rounded-lg shadow-md w-full h-auto object-cover"
+          onerror="this.onerror=null; this.src='https://placehold.co/600x400/e0e0e0/757575?text=Image+Not+Found';">
+      </div>
+    </div>
+
+    <section class="text-center">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Why Choose QuizMaster?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">Diverse Topics</h3>
+          <p class="text-gray-600">From history to science, pop culture to geography.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">Engaging Format</h3>
+          <p class="text-gray-600">Fun and interactive quizzes to keep you entertained.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">Learn & Grow</h3>
+          <p class="text-gray-600">Expand your knowledge while having a good time.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-gray-300 mt-12 py-6 rounded-t-lg">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 QuizMaster. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <app-login-signup-components></app-login-signup-components>
+</div>
