@@ -1,9 +1,8 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { QuizzesManagerService } from '../utils/services/quizzes-manager/quizzes-manager.service';
-import { QuizCardComponent } from "../utils/quiz-card/quiz-card.component";
+import { QuizCardComponent } from '../utils/components/quiz-card/quiz-card.component';
 import { NavbarComponent } from "../utils/components/navbar/navbar.component";
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import { QuizModel } from '../utils/models/quiz_model';
+import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz-explorer',
@@ -14,19 +13,35 @@ import { QuizModel } from '../utils/models/quiz_model';
 })
 export class QuizExplorerComponent {
   title = new FormControl('');
+
+  extraFilters = new FormGroup({
+    createdby: new FormControl(''),
+    difficulty: new FormControl(''),
+    topic: new FormControl(''),
+  });
+
   quizManager = inject(QuizzesManagerService);
   loading = computed(() => this.quizManager.loading());
 
-  filteredQuizzes = signal<QuizModel[]>(this.quizManager.quizzesComputed());
+  // TODO: resolve the initial quizzes showned
+  filteredQuizzes = computed(() => this.quizManager.filteredQuizzes());
 
   constructor() {
     this.title.valueChanges.subscribe((value) => {
-      if(!value) {
-        this.filteredQuizzes.set(this.quizManager.quizzesComputed());
-        return;
-      }
-      this.quizManager.filterQuizzesByTitle(value);
-      this.filteredQuizzes.set(this.quizManager.filteredQuizzes());
+      this.quizManager.filterQuizzesByTitle(value || '');
     });
+
+    this.extraFilters.valueChanges.subscribe((value) => {
+      this.quizManager.filterQuizzesWithExtraFilters(value.createdby || '', value.difficulty || '', value.topic || '');
+    });
+  }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  resetExtraFilters() {
+    console.log('resetting extra filters');
+    this.extraFilters.reset();
+    this.quizManager.filterQuizzesWithExtraFilters('', '', '');
   }
 }

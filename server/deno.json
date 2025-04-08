@@ -4,6 +4,7 @@
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
+    "cors": "npm:cors@^2.8.5",
     "hono": "npm:hono@^4.7.5",
     "jsonwebtoken": "npm:jsonwebtoken@^9.0.2",
     "jwt": "npm:jwt@^0.2.0",

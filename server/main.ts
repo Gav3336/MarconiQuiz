@@ -3,6 +3,7 @@ import { initialConnection } from "./handlers/postgressHandlers/postgressManager
 import { signup, login, tokenChecker } from "./handlers/postgressHandlers/userManager.ts"
 import { userDataSchema, userDataInterface, loginDataSchema } from "./utils/validators/userValidator.ts"
 import { quizzes } from "./routes/quizzes.ts"
+import { cors } from 'hono/cors'
 
 // try connect to the database
 // if there is an error, log the error and exit the process
@@ -19,6 +20,8 @@ import { quizzes } from "./routes/quizzes.ts"
 
 
 const app = new Hono()
+
+app.use('/*', cors())
 
 app.post('/signup', async (c) => {
     const userData = await c.req.parseBody()
