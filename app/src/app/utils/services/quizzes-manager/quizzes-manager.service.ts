@@ -13,6 +13,10 @@ export class QuizzesManagerService {
   #quizzes = signal<QuizModel[]>([]);
   quizzesComputed = computed(() => this.#quizzes());
 
+  filteredQuizzes = signal<QuizModel[]>([]);
+
+  loading = signal<boolean>(true);
+
   constructor() {
     this.getQuizzesViaRest();
   }
@@ -20,11 +24,25 @@ export class QuizzesManagerService {
   getQuizzesViaRest() {
     this.#http.get<any>(this.#url).subscribe({
       next: (quizzes) => {
+        this.loading.set(false);
         this.#quizzes.set(quizzes.message);
       },
       error: (err) => {
+        this.loading.set(false);
         console.error(err);
       }
     });
+  }
+
+  filterQuizzesByTitle(title: string) {
+    if (title) {
+      this.filteredQuizzes.set(
+        this.#quizzes().filter((quiz) =>
+          quiz.title.toLowerCase().includes(title.toLowerCase())
+        )
+      );
+    } else {
+      this.filteredQuizzes.set(this.#quizzes());
+    }
   }
 }
