@@ -3,6 +3,7 @@ import { QuizzesManagerService } from '../utils/services/quizzes-manager/quizzes
 import { QuizCardComponent } from '../utils/components/quiz-card/quiz-card.component';
 import { NavbarComponent } from "../utils/components/navbar/navbar.component";
 import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { QuizModel } from '../utils/models/quiz_model';
 
 @Component({
   selector: 'app-quiz-explorer',
@@ -34,6 +35,7 @@ export class QuizExplorerComponent {
     });
 
     this.extraFilters.valueChanges.subscribe((value) => {
+      console.log(value.topic)
       this.quizManager.filterQuizzesWithExtraFilters(value.createdby || '', value.difficulty || '', value.topic || '');
     });
   }

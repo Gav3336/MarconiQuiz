@@ -12,7 +12,7 @@ export class QuizzesManagerService {
   #QuizzesURL = 'http://localhost:3000/quizzes';
   #topicURL = 'http://localhost:3000/quizzes/topics';
 
-  #topics = signal<string[]>([]);
+  #topics = signal<TopicModel[]>([]);
   topicsComputed = computed(() => this.#topics());
 
   #quizzes = signal<QuizModel[]>([]);
@@ -44,10 +44,8 @@ export class QuizzesManagerService {
   }
 
   getTopicsViaRest() {
-    console.log('getting topics');
     this.#http.get<any>(this.#topicURL).subscribe({
       next: (topics) => {
-        console.log('topics', topics);
         this.#topics.set(topics.message);
       }
       ,error: (err) => {

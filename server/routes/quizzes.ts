@@ -57,6 +57,6 @@ quizzes.get('/topics', async (c) => {
     }
 
     return c.json({
-        message: topics,
+        message: topics[0],
     })
 })

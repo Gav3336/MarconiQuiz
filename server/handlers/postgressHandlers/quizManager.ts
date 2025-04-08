@@ -18,9 +18,6 @@ export async function getQuizzes(paginator: quizValidators.paginatorInterface): 
     } catch (err) {
         console.log("Error getting quizzes (quizManager.ts): ", err);
         throw new Error("Error getting quizzes");
-    } finally {
-        // Disconnect only at the end
-        await dbPool.end();
     }
 }
 
@@ -37,12 +34,10 @@ export async function getTopics() {
         }
 
         const parsed_result = quizValidators.quiz_topics_schema_Validator.parse(result.rows);
+
         return [parsed_result];
     } catch (err) {
         console.log("Error getting topics (quizManager.ts): ", err);
         throw new Error("Error getting topics");
-    } finally {
-        // Disconnect only at the end
-        await dbPool.end();
     }
 }
