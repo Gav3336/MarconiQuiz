@@ -65,13 +65,16 @@
       <p class="text-gray-500">Loading quizzes...</p>
     </div>
     } @else {
+    @if (filteredQuizzes().length !== 0) {
     <div id="quiz-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- usao if else per permettere all'empty message di essere centrato -->
       @for (quiz of filteredQuizzes(); track $index) {
       <app-quiz-card [quiz_data]="quiz"></app-quiz-card>
-      } @empty {
-      <p id="no-results" class="text-center text-gray-500 mt-8">No quizzes found matching your criteria.</p>
       }
     </div>
+    } @else {
+    <p id="no-results" class="text-center text-gray-500 mt-8">No quizzes found matching your criteria.</p>
+    }
     }
   </main>
 
