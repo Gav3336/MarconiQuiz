@@ -8,6 +8,4 @@ export const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'explore_quizzes', component: QuizExplorerComponent},
   {path: 'quiz/:id', component: QuizPageComponent},
-  // TODO: add a 404 page
-  {path: '**', redirectTo: 'home'}
 ];

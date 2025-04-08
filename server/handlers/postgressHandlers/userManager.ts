@@ -1,4 +1,4 @@
-import { dbClient } from "./postgressManager.ts";
+import { dbPool } from "./postgressManager.ts";
 import * as userValidation from "../../utils/validators/userValidator.ts";
 import { Buffer } from "node:buffer";
 import { createJWT, verifyJWT } from "./jwtManager.ts";
@@ -28,7 +28,7 @@ export async function signup(userData: userValidation.userDataInterface): Promis
         const derivedKey = await scryptPromise(userData.password, salt, 64, { N: 1024 });
 
         // Store salt + hash in the database
-        await dbClient.connect();
+        using dbClient = await dbPool.connect();
 
         const query = "INSERT INTO users (username, password, salt, email, birthday, num_tel) VALUES ($1, $2, $3, $4, $5, $6)";
 
@@ -52,7 +52,7 @@ export async function signup(userData: userValidation.userDataInterface): Promis
         if (err instanceof Error)
             throw new Error("Error during user signup: " + err.message);
     } finally {
-        await dbClient.end();
+        await dbPool.end();
     }
 }
 
@@ -60,18 +60,18 @@ export async function login(loginData: userValidation.LoginDataInterface): Promi
 
     // check db connection
     try {
-        await dbClient.connect()
+        await dbPool.connect()
 
     } catch (err) {
         console.log("Error connecting to the database (userManager.ts): ", err)
         throw new Error("Error connecting to the database")
     } finally {
-        await dbClient.end()
+        await dbPool.end()
     }
 
     // check if the user exists
     try {
-        await dbClient.connect()
+        using dbClient = await dbPool.connect()
         const query = "SELECT * FROM users WHERE username = $1 OR email = $2";
         const result = await dbClient.queryObject(query, [loginData.username, loginData.email]);
 
@@ -103,7 +103,7 @@ export async function login(loginData: userValidation.LoginDataInterface): Promi
             throw new Error("Error checking if user exists: " + err.message)
     }
     finally {
-        await dbClient.end()
+        await dbPool.end()
     }
 }
 

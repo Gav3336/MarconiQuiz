@@ -20,11 +20,13 @@ export class QuizExplorerComponent {
     topic: new FormControl(''),
   });
 
+  error = computed(() => this.quizManager.errors());
+
   quizManager = inject(QuizzesManagerService);
   loading = computed(() => this.quizManager.loading());
 
-  // TODO: resolve the initial quizzes showned
   filteredQuizzes = computed(() => this.quizManager.filteredQuizzes());
+  topics = computed(() => this.quizManager.topicsComputed());
 
   constructor() {
     this.title.valueChanges.subscribe((value) => {
@@ -35,13 +37,16 @@ export class QuizExplorerComponent {
       this.quizManager.filterQuizzesWithExtraFilters(value.createdby || '', value.difficulty || '', value.topic || '');
     });
   }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
 
   resetExtraFilters() {
-    console.log('resetting extra filters');
     this.extraFilters.reset();
     this.quizManager.filterQuizzesWithExtraFilters('', '', '');
+    this.title.setValue('');
+    this.quizManager.filterQuizzesByTitle('');
+  }
+
+  // when the user navigates away from the component, reset the filters
+  ngOnDestroy() {
+    this.quizManager.resetFilters();
   }
 }
