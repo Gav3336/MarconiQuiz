@@ -1,1 +1,5 @@
-{{quizID}}
+@if(loading()){
+  <p>Loading...</p>
+} @else{
+{{quizData().id}}
+}

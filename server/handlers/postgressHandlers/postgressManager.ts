@@ -1,6 +1,6 @@
 import { Pool } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 
-const POOL_CONNECTIONS = 4;
+const POOL_CONNECTIONS = 20;
 
 export const dbPool = new Pool(
     {
