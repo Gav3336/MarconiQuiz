@@ -1,9 +1,40 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagerService {
+  #http = inject(HttpClient);
+  #base_URL = 'http://localhost:3000/user';
 
-  constructor() { }
+  loading = signal<boolean>(false);
+  logged = signal<boolean>(false);
+
+  jwt = signal<string>('');
+
+  signup(email: string, password: string) {
+    this.loading.set(true);
+
+
+
+    this.#http.post<any>(`${this.#base_URL}/signup`, {email, password}).subscribe({
+      next: (response) => {
+        // Handle success
+      },
+      error: (error) => {
+        // Handle error
+      }
+    })
+
+  }
+
+  login(){
+  }
+
+  jwtcheck(){
+  }
+
+  logout(){
+  }
 }

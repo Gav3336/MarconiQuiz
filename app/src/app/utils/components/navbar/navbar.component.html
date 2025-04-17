@@ -3,13 +3,9 @@
     <div class="flex justify-between items-center">
       <a [routerLink]="['/home']" class="text-2xl font-bold text-indigo-600">QuizMaster</a>
       <div class="space-x-2">
-        <button id="login-btn"
-          class="text-gray-600 hover:text-indigo-600 px-4 py-2 rounded-md text-sm font-medium border border-gray-300 hover:border-indigo-300 transition duration-150 ease-in-out">
-          Log In
-        </button>
-        <button id="signup-btn"
+        <button id="login-btn" [routerLink]="['/login']"
           class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out shadow-sm hover:shadow">
-          Sign Up
+          Log In
         </button>
       </div>
     </div>

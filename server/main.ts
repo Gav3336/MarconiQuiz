@@ -4,6 +4,7 @@ import { signup, login, tokenChecker } from "./handlers/postgressHandlers/userMa
 import { userDataSchema, userDataInterface, loginDataSchema } from "./utils/validators/userValidator.ts"
 import { quizzes } from "./routes/quizzes.ts"
 import { cors } from 'hono/cors'
+import { user } from "./routes/user.ts"
 
 // try connect to the database
 // if there is an error, log the error and exit the process
@@ -97,6 +98,7 @@ app.post('/check', async (c) => {
 })
 
 app.route('/quizzes', quizzes)
+app.route('/user', user)
 
 // catch all route that are not defined
 app.all('*', (c) => {
