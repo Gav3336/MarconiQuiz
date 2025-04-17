@@ -5,6 +5,7 @@ import { userDataSchema, userDataInterface, loginDataSchema } from "./utils/vali
 import { quizzes } from "./routes/quizzes.ts"
 import { cors } from 'hono/cors'
 import { user } from "./routes/user.ts"
+import { getBucketName } from "./handlers/minioHandlers/minioManager.ts"
 
 // try connect to the database
 // if there is an error, log the error and exit the process
@@ -18,6 +19,8 @@ import { user } from "./routes/user.ts"
         Deno.exit(1)
     }
 })()
+
+getBucketName()
 
 
 const app = new Hono()

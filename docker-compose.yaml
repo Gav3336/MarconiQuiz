@@ -32,3 +32,19 @@ services:
       POSTGRES_PASSWORD: cisco
       POSTGRES_USER: admin
       POSTGRES_DB: marconiquiz
+
+  minio:
+    image: minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_REGION: us-east-1
+      MINIO_S3_BUCKET: marconiquiz
+      MINIO_S3_BUCKET_REGION: us-east-1
+      MINIO_S3_BUCKET_SSL: false
+    volumes:
+      - './minio_data:/mnt/data'
+    command: server /mnt/data --console-address ":9001"
