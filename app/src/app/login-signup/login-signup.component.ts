@@ -3,10 +3,11 @@ import { NavbarComponent } from "../utils/components/navbar/navbar.component";
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { signupValidator, loginValidator } from '../utils/validators/signing_validators/signing_validators';
 import { UserManagerService } from '../utils/services/user_manager/user-manager.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login-signup',
-  imports: [NavbarComponent, ReactiveFormsModule],
+  imports: [NavbarComponent, ReactiveFormsModule, ButtonModule],
   templateUrl: './login-signup.component.html',
   styleUrl: './login-signup.component.css'
 })
