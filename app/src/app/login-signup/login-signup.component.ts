@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from "../utils/components/navbar/navbar.component";
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { signupValidator, loginValidator } from '../utils/validators/signing_validators/signing_validators';
+import { UserManagerService } from '../utils/services/user_manager/user-manager.service';
 
 @Component({
   selector: 'app-login-signup',
@@ -9,6 +11,7 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './login-signup.component.css'
 })
 export class LoginSignupComponent {
+  userManager = inject(UserManagerService);
 
   loginForm = new FormGroup({
     email_username: new FormControl('', { validators: [Validators.required, Validators.maxLength(50)] }),
@@ -27,6 +30,15 @@ export class LoginSignupComponent {
   }
 
   onSignupSubmit() {
+    const parsedData = signupValidator.safeParse(this.signupForm.value);
+
+    if(!parsedData.success) {
+      console.log(parsedData.error.errors[0].message);
+      return;
+    }
+
+    this.userManager.signup(parsedData);
+
     console.log(this.signupForm.value);
   }
 }

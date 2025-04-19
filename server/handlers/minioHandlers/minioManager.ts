@@ -14,6 +14,6 @@ export async function getBucketName() {
 
         return buckets
     } catch (err) {
-        console.log(err.message)
+        console.log((err as Error).message)
     }
 }

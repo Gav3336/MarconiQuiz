@@ -16,6 +16,8 @@ export class UserManagerService {
   signup(signupForm: any) {
     this.loading.set(true);
 
+    console.log(signupForm);
+
     // this.#http.post<any>(`${this.#base_URL}/signup`, { email, password }).subscribe({
     //   next: (response) => {
     //     // Handle success
