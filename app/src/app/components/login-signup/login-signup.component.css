@@ -1,0 +1,21 @@
+/* Remove the previously added :host rule */
+/*
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+  width: 100%;
+  padding-top: 60px;
+  box-sizing: border-box;
+}
+*/
+
+.auth-container {
+  /* ... existing styles for auth-container ... */
+  max-width: 400px; /* Example max-width */
+  width: 90%; /* Example width */
+  /* ... other existing styles ... */
+}
+
+/* ... rest of existing styles ... */

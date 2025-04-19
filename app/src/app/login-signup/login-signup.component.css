@@ -1,0 +1,11 @@
+/* Apply Inter font globally */
+body {
+  font-family: 'Inter', sans-serif;
+}
+/* Custom gradient for buttons */
+.btn-gradient {
+   background-image: linear-gradient(to right, #8B5CF6, #6366F1); /* Purple gradient */
+}
+.btn-gradient:hover {
+   background-image: linear-gradient(to right, #7C3AED, #4F46E5); /* Darker purple gradient on hover */
+}

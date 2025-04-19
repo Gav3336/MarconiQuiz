@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { QuizModel } from '../../models/quiz_model';
 import { TopicModel } from '../../models/topic_model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class QuizzesManagerService {
   #http = inject(HttpClient);
   #QuizzesURL = 'http://localhost:3000/quizzes';
   #topicURL = 'http://localhost:3000/quizzes/topics';
+
+  router = inject(Router);
 
   #topics = signal<TopicModel[]>([]);
   topicsComputed = computed(() => this.#topics());
@@ -38,6 +41,7 @@ export class QuizzesManagerService {
       error: (err) => {
         console.error('error fetching quizzes', err);
         this.errors.set(['Error fetching quizzes']);
+
       }
     }).closed;
     this.loading.set(false);
@@ -48,7 +52,7 @@ export class QuizzesManagerService {
       next: (topics) => {
         this.#topics.set(topics.message);
       }
-      ,error: (err) => {
+      , error: (err) => {
         console.error('error fetching topics', err);
         this.errors.set(['Error fetching topics']);
       }

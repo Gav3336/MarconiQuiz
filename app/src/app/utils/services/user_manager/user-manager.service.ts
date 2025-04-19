@@ -13,28 +13,27 @@ export class UserManagerService {
 
   jwt = signal<string>('');
 
-  signup(email: string, password: string) {
+  signup(signupForm: any) {
     this.loading.set(true);
 
+    // this.#http.post<any>(`${this.#base_URL}/signup`, { email, password }).subscribe({
+    //   next: (response) => {
+    //     // Handle success
+    //   },
+    //   error: (error) => {
+    //     // Handle error
+    //   }
+    // })
 
-
-    this.#http.post<any>(`${this.#base_URL}/signup`, {email, password}).subscribe({
-      next: (response) => {
-        // Handle success
-      },
-      error: (error) => {
-        // Handle error
-      }
-    })
-
+    this.loading.set(false);
   }
 
-  login(){
+  login() {
   }
 
-  jwtcheck(){
+  jwtcheck() {
   }
 
-  logout(){
+  logout() {
   }
 }
