@@ -18,14 +18,16 @@ export class UserManagerService {
 
     console.log(signupForm);
 
-    // this.#http.post<any>(`${this.#base_URL}/signup`, { email, password }).subscribe({
-    //   next: (response) => {
-    //     // Handle success
-    //   },
-    //   error: (error) => {
-    //     // Handle error
-    //   }
-    // })
+    this.#http.post<any>(`${this.#base_URL}/signup`, signupForm).subscribe({
+      next: (response) => {
+        console.log(response);
+        return response;
+      },
+      error: (error) => {
+        console.log(error);
+        return error;
+      }
+    })
 
     this.loading.set(false);
   }

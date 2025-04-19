@@ -24,7 +24,7 @@ export type LoginDataInterface = z.infer<typeof loginDataSchema>;
 export const userDataSchema = z.object({
     username: z.string({message: "username must be a string"}).min(3).max(20).regex(/^[a-zA-Z0-9_]+$/, "Username must contain only letters, numbers and underscores"),
     password: z.string({message: "password must be a string"}).min(8).max(64).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,64}$/, "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"),
-    email: z.string({message: "email must be a string"}).email().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email must be a valid email address"),
+    email: z.string({message: "email must be a string"}).email().min(3).max(50).regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email must be a valid email address"),
     birthday: z.string({message: "birthday not valid"}).date().optional(),
     num_tel: z.string().optional(),
 });

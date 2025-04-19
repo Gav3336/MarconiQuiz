@@ -4,14 +4,19 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
 import { signupValidator, loginValidator } from '../utils/validators/signing_validators/signing_validators';
 import { UserManagerService } from '../utils/services/user_manager/user-manager.service';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-login-signup',
-  imports: [NavbarComponent, ReactiveFormsModule, ButtonModule],
+  imports: [NavbarComponent, ReactiveFormsModule, ButtonModule, ToastModule],
   templateUrl: './login-signup.component.html',
-  styleUrl: './login-signup.component.css'
+  styleUrl: './login-signup.component.css',
+  providers: [MessageService]
 })
 export class LoginSignupComponent {
+  messageService = inject(MessageService);
   userManager = inject(UserManagerService);
 
   loginForm = new FormGroup({
@@ -20,10 +25,10 @@ export class LoginSignupComponent {
   });
 
   signupForm = new FormGroup({
-    email: new FormControl('', { validators: [Validators.required, Validators.email, Validators.maxLength(50)] }),
-    username: new FormControl('', { validators: [Validators.required, Validators.maxLength(20)] }),
-    password: new FormControl('', { validators: [Validators.required, Validators.maxLength(20)] }),
-    confirmPassword: new FormControl('', { validators: [Validators.required, Validators.maxLength(20)] })
+    email: new FormControl(''),
+    username: new FormControl(''),
+    password: new FormControl(''),
+    confirmPassword: new FormControl('')
   });
 
   onLoginSubmit() {
@@ -35,11 +40,16 @@ export class LoginSignupComponent {
 
     if(!parsedData.success) {
       console.log(parsedData.error.errors[0].message);
+      this.showToast('error', 'Error', parsedData.error.errors[0].message);
       return;
     }
 
     this.userManager.signup(parsedData);
 
     console.log(this.signupForm.value);
+  }
+
+  showToast(severity: string, summary: string, detail: string) {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
   }
 }
